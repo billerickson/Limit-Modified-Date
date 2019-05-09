@@ -17,7 +17,6 @@ class Limit_Modified_Date {
 
 	function __construct() {
 		add_action( 'init', array( $this, 'register_post_meta' ) );
-		add_filter( 'is_protected_meta', array( $this, 'meta_unprotect' ), 10, 2 );
 		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor_assets' ) );
 	}
 
@@ -46,7 +45,6 @@ class Limit_Modified_Date {
 		if( ! $this->is_supported_post_type( get_post_type( $post ) ) )
 			return;
 
-
 		wp_enqueue_script(
 			'limit-modified-date-js',
 			plugins_url( 'assets/js/editor.js', __FILE__ ),
@@ -62,7 +60,7 @@ class Limit_Modified_Date {
 			$this->version,
 			true
 		);
-	}	
+	}
 
 	/**
 	 * Determine whether a post type supports custom links.
@@ -84,3 +82,5 @@ class Limit_Modified_Date {
 	}
 
 }
+
+new Limit_Modified_Date();
