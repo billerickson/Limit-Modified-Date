@@ -18,7 +18,7 @@ class Limit_Modified_Date {
 	function __construct() {
 
 		// Use original modified date
-		add_action('wp_insert_post_data', array( $this, 'use_original_modified_date' ), 10, 2 );
+		add_action('wp_insert_post_data', array( $this, 'use_original_modified_date' ), 20, 2 );
 
 		// Checkbox in block editor
 		add_action( 'init', array( $this, 'register_post_meta' ) );
@@ -40,15 +40,21 @@ class Limit_Modified_Date {
 	 * */
 	function use_original_modified_date( $data, $postarr ) {
 
-		$use_original = isset( $_POST[ $this->meta_key ] ) ? filter_var( $_POST[ $this->meta_key ], FILTER_VALIDATE_BOOLEAN ) : false;
+		// Block editor uses post meta
+		$use_original = get_post_meta( $postarr['ID'], $this->meta_key, true );
+		$last_modified = get_post_meta( $postarr['ID'], 'last_modified_date', true );
 
-		if( $use_original ) {
+		if( $use_original && $last_modified ) {
 
-			if( isset( $_POST['current_modified_date'] ) ) {
-				$data['post_modified'] = date( 'Y-m-d H:i:s', strtotime( $_POST['current_modified_date'] ) );
-				$data['post_modified_gmt'] = get_gmt_from_date( $data['post_modified'] );
+			$data['post_modified'] = date( 'Y-m-d H:i:s', strtotime( $last_modified ) );
+			$data['post_modified_gmt'] = get_gmt_from_date( $data['post_modified'] );
 
-			} else {
+		// Classic editor
+		} else {
+
+			$use_original = isset( $_POST[ $this->meta_key ] ) ? filter_var( $_POST[ $this->meta_key ], FILTER_VALIDATE_BOOLEAN ) : false;
+			if( $use_original ) {
+
 				if( isset( $postarr['post_modified'] ) )
 					$data['post_modified'] = $postarr['post_modified'];
 				if( isset( $postarr['post_modified_gmt'] ) )
@@ -69,7 +75,7 @@ class Limit_Modified_Date {
 		);
 
 		register_meta( 'post', $this->meta_key, $args );
-		register_meta( 'post', 'current_modified_date', $args );
+		register_meta( 'post', 'last_modified_date', $args );
 	}
 
 	/**
@@ -172,7 +178,3 @@ class Limit_Modified_Date {
 }
 
 new Limit_Modified_Date();
-
-add_action( 'genesis_before_loop', function() {
-	ea_pp( get_post_meta( get_the_ID(), 'last_modified_date', true ) );
-});
