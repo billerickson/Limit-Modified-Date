@@ -16,3 +16,10 @@ This plugin works with both the Gutenberg block editor and the Classic editor.
 ## Customization ##
 
 This plugin only applies to the `post` post type by default. You can customize which post types it appears on using the `limit_modified_date_post_types` filter.
+
+```
+add_filter( 'limit_modified_date_post_types', function( $post_types ) {
+	$post_types[] = 'page';
+	return  $post_types;
+});
+```
