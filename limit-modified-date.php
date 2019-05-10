@@ -172,3 +172,7 @@ class Limit_Modified_Date {
 }
 
 new Limit_Modified_Date();
+
+add_action( 'genesis_before_loop', function() {
+	ea_pp( get_post_meta( get_the_ID(), 'last_modified_date', true ) );
+});

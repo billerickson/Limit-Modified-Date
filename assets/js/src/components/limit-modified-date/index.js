@@ -35,18 +35,20 @@ export class LimitModifiedDate extends Component {
 
 export default compose( [
 	withSelect( ( select ) => {
-		const { getEditedPostAttribute } = select( 'core/editor' );
+		const { getEditedPostAttribute, getCurrentPost } = select( 'core/editor' );
 
 		return {
 			meta: getEditedPostAttribute( 'meta' ),
+			lastModified: getCurrentPost().modified,
 		};
 	} ),
-	withDispatch( ( dispatch, { meta } ) => {
+	withDispatch( ( dispatch, { meta, lastModified } ) => {
 		const { editPost } = dispatch( 'core/editor' );
 
 		return {
 			updateMeta( newMeta ) {
 				newMeta.limit_modified_date = newMeta.limit_modified_date ? '1' : '';
+				newMeta.last_modified_date = lastModified;
 				editPost( { meta: { ...meta, ...newMeta } } ); // Important: Old and new meta need to be merged in a non-mutating way!
 			},
 		};
