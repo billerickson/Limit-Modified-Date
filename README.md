@@ -1,4 +1,4 @@
-# [Limit Modified Date]
+# Limit Modified Date
 
 Make minor changes to your content without changing the last modified date
 
