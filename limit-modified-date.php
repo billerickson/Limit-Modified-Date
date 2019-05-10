@@ -16,8 +16,41 @@ class Limit_Modified_Date {
 	private $version = '1.0';
 
 	function __construct() {
+
+		// Use original modified date
+		add_action('wp_insert_post_data', array( $this, 'use_original_modified_date' ), 10, 2 );
+
+		// Checkbox in block editor
 		add_action( 'init', array( $this, 'register_post_meta' ) );
 		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor_assets' ) );
+
+		// Checkbox in classic editor
+		add_action( 'post_submitbox_misc_actions', array( $this, 'classic_editor_checkbox' ) );
+		add_action( 'save_post', array( $this, 'save_post' ) );
+
+	}
+
+	/*
+	 * Use original modified date
+	 *
+	 * @param array Slashed post data
+	 * @param array Raw post data
+	 *
+	 * @return array Slashed post data with modified post_modified and post_modified_gmt
+	 * */
+	function use_original_modified_date( $data, $postarr ) {
+
+		$use_original = isset( $_POST[ $this->meta_key ] ) ? filter_var( $_POST[ $this->meta_key ], FILTER_VALIDATE_BOOLEAN ) : false;
+
+		if( $use_original ) {
+
+			if( isset( $postarr['post_modified'] ) )
+				$data['post_modified'] = $postarr['post_modified'];
+			if( isset( $postarr['post_modified_gmt'] ) )
+				$data['post_modified_gmt'] = $postarr['post_modified_gmt'];
+		}
+
+		return $data;
 	}
 
 	/**
@@ -81,6 +114,52 @@ class Limit_Modified_Date {
 		return in_array( $type, $supported_post_types );
 	}
 
+	/**
+	 * Checkbox in classic editor
+	 *
+	 */
+	function classic_editor_checkbox() {
+		global $post;
+
+		if( ! $this->is_supported_post_type( get_post_type( $post ) ) )
+			return;
+
+		wp_nonce_field( $this->meta_key, $this->meta_key . '_nonce' );
+		$val = get_post_meta( $post->ID, $this->meta_key, true );
+
+		echo '<div class="misc-pub-section">';
+			echo '<input type="checkbox" name="' . $this->meta_key . '" id="' . $this->meta_key . '" value="1"' . checked( $val, '1', false ) . ' />';
+			echo '<label for="' . $this->meta_key . '">' . __( 'Don\'t update the modified date', 'limit-modified-date' ) . '</label>';
+		echo '</div>';
+	}
+
+	function save_post( $post_id ) {
+
+		if ( ! isset( $_POST['post_type'] ) ) {
+			return;
+		}
+
+		if ( ! isset( $_POST[ $this->meta_key . '_nonce'] ) || ! wp_verify_nonce( $_POST[ $this->meta_key . '_nonce' ], $this->meta_key ) ) {
+			return;
+		}
+
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
+
+		if ( ! isset( $_POST['limit_modified_date'] ) ) {
+			// editing the post causes it to be purged anyway, so just remove the meta
+			delete_post_meta( $post_id, $this->meta_key );
+		} else {
+			if ( 1 === absint( $_POST['limit_modified_date'] ) ) {
+				update_post_meta( $post_id, $this->meta_key, 1 );
+			}
+		}
+	}
 }
 
 new Limit_Modified_Date();
