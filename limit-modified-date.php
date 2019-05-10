@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Limit Modified Date
  * Plugin URI: https://github.com/billerickson/Limit-Modified-Date
- * Description: Make minor changes to your content without changing the last modified date
+ * Description: Prevent the "modified date" from changing when making minor changes to your content.
  * Version: 1.0.0
  * Author: Bill Erickson
  * Author URI: https://www.billerickson.net

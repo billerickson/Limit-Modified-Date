@@ -1,8 +1,10 @@
 # Limit Modified Date
 
-Make minor changes to your content without changing the last modified date
+Prevent the "modified date" from changing when making minor changes to your content.
 
-When "Don't update the modified date" is checked, saving content does not update the post modified date ( `get_the_modified_date()` ). When making a large content change, you can uncheck it before saving the post and the modified date will be updated.
+When "Don't update the modified date" is checked, saving content does not update the post modified date. This gives you more control when using `get_the_modified_date()` in your theme. Minor changes like adding tags or fixing typos won't bump the modified date.
+
+When you're ready to publish a major content change, you can uncheck this setting before saving the post.
 
 This plugin works with both the Gutenberg block editor and the Classic editor.
 
