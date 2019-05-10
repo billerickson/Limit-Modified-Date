@@ -44,10 +44,16 @@ class Limit_Modified_Date {
 
 		if( $use_original ) {
 
-			if( isset( $postarr['post_modified'] ) )
-				$data['post_modified'] = $postarr['post_modified'];
-			if( isset( $postarr['post_modified_gmt'] ) )
-				$data['post_modified_gmt'] = $postarr['post_modified_gmt'];
+			if( isset( $_POST['current_modified_date'] ) ) {
+				$data['post_modified'] = date( 'Y-m-d H:i:s', strtotime( $_POST['current_modified_date'] ) );
+				$data['post_modified_gmt'] = get_gmt_from_date( $data['post_modified'] );
+
+			} else {
+				if( isset( $postarr['post_modified'] ) )
+					$data['post_modified'] = $postarr['post_modified'];
+				if( isset( $postarr['post_modified_gmt'] ) )
+					$data['post_modified_gmt'] = $postarr['post_modified_gmt'];
+			}
 		}
 
 		return $data;
@@ -63,6 +69,7 @@ class Limit_Modified_Date {
 		);
 
 		register_meta( 'post', $this->meta_key, $args );
+		register_meta( 'post', 'current_modified_date', $args );
 	}
 
 	/**
@@ -93,6 +100,8 @@ class Limit_Modified_Date {
 			$this->version,
 			true
 		);
+
+		wp_localize_script( 'limit-modified-date-js', 'limit_modified_date', array( 'current' => get_the_modified_time() ) );
 	}
 
 	/**

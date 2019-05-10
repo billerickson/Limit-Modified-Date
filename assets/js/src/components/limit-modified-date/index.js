@@ -1,6 +1,7 @@
 import { withSelect, withDispatch } from '@wordpress/data';
 import { PluginPostStatusInfo } from '@wordpress/edit-post';
 import { CheckboxControl } from '@wordpress/components';
+import { TextControl } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { Component } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
