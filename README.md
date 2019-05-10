@@ -6,7 +6,7 @@ When "Don't update the modified date" is checked, saving content does not update
 
 This plugin works with both the Gutenberg block editor and the Classic editor.
 
-![screenshot](https://d16rm1n165bd05.cloudfront.net/items/0W172F001O16101q3L3G/Screen%20Shot%202019-05-10%20at%203.55.26%20PM.png?X-CloudApp-Visitor-Id=78955b2d79e4b4c9650076a91b4db727&v=6435b788 | width=250)
+![screenshot](https://d16rm1n165bd05.cloudfront.net/items/1o2B0D0z3e1B1s3p1B0U/screenshot.jpg?X-CloudApp-Visitor-Id=78955b2d79e4b4c9650076a91b4db727&v=8e588652)
 
 
 ## Customization ##
