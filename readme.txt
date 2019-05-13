@@ -1,4 +1,13 @@
-# Limit Modified Date
+=== Limit Modified Date ===
+Contributors: billerickson
+Tags: date, time, formatting
+Requires at least: 4.3
+Tested up to: 5.2
+Stable tag: 1.0.0
+
+Prevent the "modified date" from changing when making minor changes to your content.
+
+== Description ==
 
 Prevent the "modified date" from changing when making minor changes to your content.
 
@@ -10,14 +19,9 @@ When you're ready to publish a major content change, you can uncheck this settin
 
 This plugin works with both the Gutenberg block editor and the Classic editor.
 
-## Screenshots
+**Customization**
 
-![Checkbox in post editor](https://d16rm1n165bd05.cloudfront.net/items/1o2B0D0z3e1B1s3p1B0U/screenshot.jpg?X-CloudApp-Visitor-Id=78955b2d79e4b4c9650076a91b4db727&v=8e588652)
-
-![Published and modified date shown in theme](https://d16rm1n165bd05.cloudfront.net/items/2507442p2K253A1d1Q36/Screen%20Shot%202019-05-13%20at%207.36.49%20AM.png?X-CloudApp-Visitor-Id=78955b2d79e4b4c9650076a91b4db727&v=2854da61)
-
-
-## Customization ##
+Your theme will need to use `get_the_modified_date()` to display the modified date.
 
 This plugin only applies to the `post` post type by default. You can customize which post types it appears on using the `limit_modified_date_post_types` filter.
 
@@ -27,3 +31,19 @@ add_filter( 'limit_modified_date_post_types', function( $post_types ) {
 	return  $post_types;
 });
 ```
+
+== Installation ==
+
+1. Upload `limit-modified-date` to the `/wp-content/plugins/` directory.
+1. Activate the plugin through the *Plugins* menu in WordPress.
+1. When editing a post, check "Don't update the modified date" and save your post.
+
+== Screenshots ==
+
+1. Checkbox in post editor
+2. Published and modified date shown in theme
+
+== Changelog ==
+
+**Version 1.0.0**
+* Initial release
