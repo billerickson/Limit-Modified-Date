@@ -40,8 +40,8 @@ add_filter( 'limit_modified_date_post_types', function( $post_types ) {
 
 == Screenshots ==
 
-1. Checkbox in post editor
-2. Published and modified date shown in theme
+1. Published and modified date shown in theme
+2. Checkbox in post editor
 
 == Changelog ==
 
