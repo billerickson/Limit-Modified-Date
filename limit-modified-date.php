@@ -124,7 +124,7 @@ class Limit_Modified_Date {
 		}
 
 		$supported_post_types = (array) apply_filters( 'limit_modified_date_post_types', array( 'post' ) );
-		return in_array( $type, $supported_post_types );
+		return in_array( $type, $supported_post_types, true );
 	}
 
 	/**
