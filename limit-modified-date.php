@@ -124,7 +124,7 @@ class Limit_Modified_Date {
 		}
 
 		$supported_post_types = (array) apply_filters( 'limit_modified_date_post_types', array( 'post' ) );
-		return in_array( $type, $supported_post_types );
+		return in_array( $type, $supported_post_types, true );
 	}
 
 	/**
@@ -141,8 +141,8 @@ class Limit_Modified_Date {
 		$val = get_post_meta( $post->ID, $this->meta_key, true );
 
 		echo '<div class="misc-pub-section">';
-			echo '<input type="checkbox" name="' . $this->meta_key . '" id="' . $this->meta_key . '" value="1"' . checked( $val, '1', false ) . ' />';
-			echo '<label for="' . $this->meta_key . '">' . __( 'Don\'t update the modified date', 'limit-modified-date' ) . '</label>';
+			echo '<input type="checkbox" name="' . esc_attr( $this->meta_key ) . '" id="' . esc_attr( $this->meta_key ) . '" value="1"' . checked( $val, '1', false ) . ' />';
+			echo '<label for="' . esc_attr( $this->meta_key ) . '">' . esc_html__( 'Don\'t update the modified date', 'limit-modified-date' ) . '</label>';
 		echo '</div>';
 	}
 
@@ -152,7 +152,10 @@ class Limit_Modified_Date {
 			return;
 		}
 
-		if ( ! isset( $_POST[ $this->meta_key . '_nonce'] ) || ! wp_verify_nonce( $_POST[ $this->meta_key . '_nonce' ], $this->meta_key ) ) {
+		if (
+			! isset( $_POST[ $this->meta_key . '_nonce' ] ) ||
+			! wp_verify_nonce( sanitize_text_field( $_POST[ $this->meta_key . '_nonce' ], $this->meta_key ) )
+		) {
 			return;
 		}
 
