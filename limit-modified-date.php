@@ -54,7 +54,7 @@ class Limit_Modified_Date {
 		$use_original = get_post_meta( $postarr['ID'], $this->meta_key, true );
 		$last_modified = get_post_meta( $postarr['ID'], 'last_modified_date', true );
 
-		if( $use_original && $last_modified ) {
+		if ( $use_original && $last_modified ) {
 
 			$data['post_modified'] = date( 'Y-m-d H:i:s', strtotime( $last_modified ) );
 			$data['post_modified_gmt'] = get_gmt_from_date( $data['post_modified'] );
@@ -63,11 +63,11 @@ class Limit_Modified_Date {
 		} else {
 
 			$use_original = isset( $_POST[ $this->meta_key ] ) ? '1' === $_POST[ $this->meta_key ] : false;
-			if( $use_original ) {
+			if ( $use_original ) {
 
-				if( isset( $postarr['post_modified'] ) )
+				if ( isset( $postarr['post_modified'] ) )
 					$data['post_modified'] = $postarr['post_modified'];
-				if( isset( $postarr['post_modified_gmt'] ) )
+				if ( isset( $postarr['post_modified_gmt'] ) )
 					$data['post_modified_gmt'] = $postarr['post_modified_gmt'];
 			}
 		}
@@ -98,7 +98,7 @@ class Limit_Modified_Date {
 		}
 
 		global $post;
-		if( ! $this->is_supported_post_type( get_post_type( $post ) ) )
+		if ( ! $this->is_supported_post_type( get_post_type( $post ) ) )
 			return;
 
 		wp_enqueue_script(
