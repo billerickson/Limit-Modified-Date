@@ -178,14 +178,14 @@ class Limit_Modified_Date {
 			return;
 		}
 
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+
 		if (
 			! isset( $_POST[ $this->nonce_key ] ) ||
 			! wp_verify_nonce( sanitize_text_field( $_POST[ $this->nonce_key ], $this->meta_key ) )
 		) {
-			return;
-		}
-
-		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
 		}
 
