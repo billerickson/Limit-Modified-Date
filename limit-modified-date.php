@@ -26,11 +26,11 @@ class Limit_Modified_Date {
 	private $last_mod_meta_key = 'last_modified_date';
 
 	/**
-	 * Limit Modified Date version.
+	 * Limit Modified Date asset version.
 	 *
 	 * @var string
 	 */
-	private $version = '1.0';
+	private $asset_version = '1.0';
 
 	public function __construct() {
 
@@ -120,7 +120,7 @@ class Limit_Modified_Date {
 				'wp-i18n',
 				'wp-plugins',
 			],
-			$this->version,
+			$this->asset_version,
 			true
 		);
 
