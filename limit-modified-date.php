@@ -11,8 +11,18 @@
 
 class Limit_Modified_Date {
 
+	/**
+	 * Limit Modified Date post meta key.
+	 *
+	 * @var string
+	 */
 	private $meta_key = 'limit_modified_date';
 
+	/**
+	 * Limit Modified Date version.
+	 *
+	 * @var string
+	 */
 	private $version = '1.0';
 
 	function __construct() {
