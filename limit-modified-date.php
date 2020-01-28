@@ -138,7 +138,7 @@ class Limit_Modified_Date {
 	 * Determine whether a post type supports limiting the modified date.
 	 *
 	 * @param string $type The post type to check.
-	 * @return bool Whether this post type supports custom links.
+	 * @return bool Whether this post type supports limiting the modified date.
 	 */
 	public static function is_supported_post_type( $type ) {
 		$supported_post_types = (array) apply_filters( 'limit_modified_date_post_types', [ 'post' ] );
