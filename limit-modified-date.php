@@ -62,7 +62,7 @@ class Limit_Modified_Date {
 		// Classic editor
 		} else {
 
-			$use_original = isset( $_POST[ $this->meta_key ] ) ? filter_var( $_POST[ $this->meta_key ], FILTER_VALIDATE_BOOLEAN ) : false;
+			$use_original = isset( $_POST[ $this->meta_key ] ) ? '1' === $_POST[ $this->meta_key ] : false;
 			if( $use_original ) {
 
 				if( isset( $postarr['post_modified'] ) )
