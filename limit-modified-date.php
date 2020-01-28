@@ -12,11 +12,18 @@
 class Limit_Modified_Date {
 
 	/**
-	 * Limit Modified Date post meta key.
+	 * Limit Modified Date enabled post meta key.
 	 *
 	 * @var string
 	 */
 	private $meta_key = 'limit_modified_date';
+
+	/**
+	 * Limit Modified Date modified date post meta key.
+	 *
+	 * @var string
+	 */
+	private $last_mod_meta_key = 'last_modified_date';
 
 	/**
 	 * Limit Modified Date version.
@@ -52,7 +59,7 @@ class Limit_Modified_Date {
 
 		// Block editor uses post meta
 		$use_original = get_post_meta( $postarr['ID'], $this->meta_key, true );
-		$last_modified = get_post_meta( $postarr['ID'], 'last_modified_date', true );
+		$last_modified = get_post_meta( $postarr['ID'], $this->last_mod_meta_key, true );
 
 		if ( $use_original && $last_modified ) {
 
@@ -85,7 +92,7 @@ class Limit_Modified_Date {
 		);
 
 		register_meta( 'post', $this->meta_key, $args );
-		register_meta( 'post', 'last_modified_date', $args );
+		register_meta( 'post', $this->last_mod_meta_key, $args );
 	}
 
 	/**
