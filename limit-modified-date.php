@@ -98,8 +98,9 @@ class Limit_Modified_Date {
 		}
 
 		global $post;
-		if ( ! $this->is_supported_post_type( get_post_type( $post ) ) )
+		if ( ! $this->is_supported_post_type( get_post_type( $post ) ) ) {
 			return;
+		}
 
 		wp_enqueue_script(
 			'limit-modified-date-js',
