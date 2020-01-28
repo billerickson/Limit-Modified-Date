@@ -25,7 +25,7 @@ class Limit_Modified_Date {
 	 */
 	private $version = '1.0';
 
-	function __construct() {
+	public function __construct() {
 
 		// Use original modified date
 		add_action( 'wp_insert_post_data', [ $this, 'use_original_modified_date' ], 20, 2 );
@@ -48,7 +48,7 @@ class Limit_Modified_Date {
 	 *
 	 * @return array Slashed post data with modified post_modified and post_modified_gmt
 	 * */
-	function use_original_modified_date( $data, $postarr ) {
+	public function use_original_modified_date( $data, $postarr ) {
 
 		// Block editor uses post meta
 		$use_original = get_post_meta( $postarr['ID'], $this->meta_key, true );
@@ -78,7 +78,7 @@ class Limit_Modified_Date {
 	/**
 	 * Registers the custom post meta fields needed by the post type.
 	 */
-	function register_post_meta() {
+	public function register_post_meta() {
 		$args = [
 			'show_in_rest' => true,
 			'single'       => true
@@ -91,7 +91,7 @@ class Limit_Modified_Date {
 	/**
 	 * Enqueues JavaScript and CSS for the block editor.
 	 */
-	function enqueue_block_editor_assets() {
+	public function enqueue_block_editor_assets() {
 
 		if ( ! function_exists( 'register_block_type' ) ) {
 			return;
@@ -141,7 +141,7 @@ class Limit_Modified_Date {
 	 * Checkbox in classic editor
 	 *
 	 */
-	function classic_editor_checkbox() {
+	public function classic_editor_checkbox() {
 		global $post;
 
 		if( ! $this->is_supported_post_type( get_post_type( $post ) ) )
@@ -156,7 +156,7 @@ class Limit_Modified_Date {
 		echo '</div>';
 	}
 
-	function save_post( $post_id ) {
+	public function save_post( $post_id ) {
 
 		if ( ! isset( $_POST['post_type'] ) ) {
 			return;
