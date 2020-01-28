@@ -26,6 +26,13 @@ class Limit_Modified_Date {
 	private $last_mod_meta_key = 'last_modified_date';
 
 	/**
+	 * Limit Modified Date nonce key.
+	 *
+	 * @var string
+	 */
+	private $nonce_key;
+
+	/**
 	 * Limit Modified Date asset version.
 	 *
 	 * @var string
@@ -33,6 +40,7 @@ class Limit_Modified_Date {
 	private $asset_version = '1.0';
 
 	public function __construct() {
+		$this->nonce_key = $this->meta_key . '_nonce';
 
 		// Use original modified date
 		add_action( 'wp_insert_post_data', [ $this, 'use_original_modified_date' ], 20, 2 );
@@ -155,7 +163,7 @@ class Limit_Modified_Date {
 			return;
 		}
 
-		wp_nonce_field( $this->meta_key, $this->meta_key . '_nonce' );
+		wp_nonce_field( $this->meta_key, $this->nonce_key );
 		$val = get_post_meta( $post->ID, $this->meta_key, true );
 
 		echo '<div class="misc-pub-section">';
@@ -171,8 +179,8 @@ class Limit_Modified_Date {
 		}
 
 		if (
-			! isset( $_POST[ $this->meta_key . '_nonce' ] ) ||
-			! wp_verify_nonce( sanitize_text_field( $_POST[ $this->meta_key . '_nonce' ], $this->meta_key ) )
+			! isset( $_POST[ $this->nonce_key ] ) ||
+			! wp_verify_nonce( sanitize_text_field( $_POST[ $this->nonce_key ], $this->meta_key ) )
 		) {
 			return;
 		}
