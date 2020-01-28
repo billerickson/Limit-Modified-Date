@@ -81,7 +81,7 @@ class Limit_Modified_Date {
 	public function register_post_meta() {
 		$args = [
 			'show_in_rest' => true,
-			'single'       => true
+			'single'       => true,
 		);
 
 		register_meta( 'post', $this->meta_key, $args );
