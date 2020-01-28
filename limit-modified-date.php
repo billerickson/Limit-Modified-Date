@@ -144,8 +144,9 @@ class Limit_Modified_Date {
 	public function classic_editor_checkbox() {
 		global $post;
 
-		if( ! $this->is_supported_post_type( get_post_type( $post ) ) )
+		if ( ! $this->is_supported_post_type( get_post_type( $post ) ) ) {
 			return;
+		}
 
 		wp_nonce_field( $this->meta_key, $this->meta_key . '_nonce' );
 		$val = get_post_meta( $post->ID, $this->meta_key, true );
