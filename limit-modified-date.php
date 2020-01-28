@@ -28,15 +28,15 @@ class Limit_Modified_Date {
 	function __construct() {
 
 		// Use original modified date
-		add_action('wp_insert_post_data', array( $this, 'use_original_modified_date' ), 20, 2 );
+		add_action('wp_insert_post_data', [ $this, 'use_original_modified_date' ], 20, 2 );
 
 		// Checkbox in block editor
-		add_action( 'init', array( $this, 'register_post_meta' ) );
-		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor_assets' ) );
+		add_action( 'init', [ $this, 'register_post_meta' ] );
+		add_action( 'enqueue_block_editor_assets', [ $this, 'enqueue_block_editor_assets' ] );
 
 		// Checkbox in classic editor
-		add_action( 'post_submitbox_misc_actions', array( $this, 'classic_editor_checkbox' ) );
-		add_action( 'save_post', array( $this, 'save_post' ) );
+		add_action( 'post_submitbox_misc_actions', [ $this, 'classic_editor_checkbox' ] );
+		add_action( 'save_post', [ $this, 'save_post' ] );
 
 	}
 
@@ -79,7 +79,7 @@ class Limit_Modified_Date {
 	 * Registers the custom post meta fields needed by the post type.
 	 */
 	function register_post_meta() {
-		$args = array(
+		$args = [
 			'show_in_rest' => true,
 			'single'       => true
 		);
@@ -117,7 +117,7 @@ class Limit_Modified_Date {
 			true
 		);
 
-		wp_localize_script( 'limit-modified-date-js', 'limit_modified_date', array( 'current' => get_the_modified_time() ) );
+		wp_localize_script( 'limit-modified-date-js', 'limit_modified_date', [ 'current' => get_the_modified_time() ] );
 	}
 
 	/**
@@ -133,7 +133,7 @@ class Limit_Modified_Date {
 			}
 		}
 
-		$supported_post_types = (array) apply_filters( 'limit_modified_date_post_types', array( 'post' ) );
+		$supported_post_types = (array) apply_filters( 'limit_modified_date_post_types', [ 'post' ] );
 		return in_array( $type, $supported_post_types, true );
 	}
 
