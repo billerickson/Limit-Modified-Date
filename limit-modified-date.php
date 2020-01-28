@@ -62,7 +62,7 @@ class Limit_Modified_Date {
 	 * @param array $data Slashed post data.
 	 * @param array $postarr Raw post data.
 	 * @return array Slashed post data with modified post_modified and post_modified_gmt
-	 * */
+	 */
 	public function use_original_modified_date( $data, $postarr ) {
 
 		// Block editor uses post meta.
