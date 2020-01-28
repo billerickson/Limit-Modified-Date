@@ -104,8 +104,7 @@ class Limit_Modified_Date {
 			return;
 		}
 
-		global $post;
-		if ( ! $this->is_supported_post_type( get_post_type( $post ) ) ) {
+		if ( ! $this->is_supported_post_type( get_post_type() ) ) {
 			return;
 		}
 
