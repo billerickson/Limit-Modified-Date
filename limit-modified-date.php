@@ -142,12 +142,6 @@ class Limit_Modified_Date {
 	 * @return bool Whether this post type supports custom links.
 	 */
 	public static function is_supported_post_type( $type ) {
-		if ( is_object( $type ) ) {
-			if ( isset( $type->id ) ) {
-				$type = $type->id;
-			}
-		}
-
 		$supported_post_types = (array) apply_filters( 'limit_modified_date_post_types', [ 'post' ] );
 		return in_array( $type, $supported_post_types, true );
 	}
