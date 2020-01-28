@@ -28,7 +28,7 @@ class Limit_Modified_Date {
 	function __construct() {
 
 		// Use original modified date
-		add_action('wp_insert_post_data', [ $this, 'use_original_modified_date' ], 20, 2 );
+		add_action( 'wp_insert_post_data', [ $this, 'use_original_modified_date' ], 20, 2 );
 
 		// Checkbox in block editor
 		add_action( 'init', [ $this, 'register_post_meta' ] );
