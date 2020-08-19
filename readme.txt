@@ -2,7 +2,7 @@
 Contributors: billerickson
 Tags: date, time, formatting
 Requires at least: 4.3
-Tested up to: 5.2
+Tested up to: 5.5
 Stable tag: 1.0.0
 
 Prevent the "modified date" from changing when making minor changes to your content.
