@@ -36,9 +36,10 @@ export class LimitModifiedDate extends Component {
 export default compose( [
 	withSelect( ( select ) => {
 		const { getEditedPostAttribute, getCurrentPost } = select( 'core/editor' );
+
 		return {
 			meta: getEditedPostAttribute( 'meta' ),
-			lastModified: getCurrentPost().date,
+			lastModified: getCurrentPost().modified,
 		};
 	} ),
 	withDispatch( ( dispatch, { meta, lastModified } ) => {
